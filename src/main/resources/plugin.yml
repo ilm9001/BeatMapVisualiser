@@ -1,0 +1,13 @@
+name: BeatMapVisualiser
+version: ${project.version}
+main: com.ilm9001.beatmapvisualiser.BeatMapVisualiser
+api-version: 1.16
+authors: [ Ilm9001 ]
+description: Parses beatmap data and plays various effects
+website: ilm9001.com
+
+commands:
+  playbeatmap:
+    description: Load a beatmap and play it
+    usage: /playbeatmap <Beatmap Folder name>
+    permission: beatmapvisualiser.playbeatmap

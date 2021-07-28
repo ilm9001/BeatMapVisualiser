@@ -1,0 +1,47 @@
+# Plugin default configuration
+
+# All coords are in the format X, Y, Z
+
+
+
+# Center of backlights
+
+backlights: [ -710, 71.0, 466.5 ]
+
+# Backlights alternate location (Used whenever color is "red")
+
+backlights_alt: [ -717, 71, 466.5 ]
+
+
+
+# Center of the screen, X Y Z
+
+screen_center: [ -708.5, 71.0, 466.0 ]
+
+# Start location for the left lasers
+
+left_lasers: [ -711.0, 80.1, 473.2 ]
+
+# Start location for the right lasers
+
+right_lasers: [ -711.0, 80.1, 458.8 ]
+
+
+
+# Alternate start location for the left lasers (Used whenever color is "red")
+
+left_lasers_alt: [ -695.0, 82.0, 498.0 ]
+
+# Alternate start location for the right lasers (Used whenever color is "red")
+
+right_lasers_alt: [ -695.0, 82.0, 435.0 ]
+
+#Back lasers middlepoint
+
+back_lasers: [ -685.5, 69.0, 466.5]
+
+#Laser ball middlepoint
+laser_ball: [ -685, 69.0, 466.0]
+
+# EOF
+
