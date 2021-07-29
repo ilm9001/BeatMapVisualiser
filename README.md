@@ -57,4 +57,4 @@ You are now safe to start your server. If you have the permission to use the com
 
 # Troubleshooting
 
-If you have any issues, please contact me on the discord and ill try to help if possible, but read all of this first and ensure youre doing it properly before asking for any help.
+If you have any issues, please contact me on the discord (https://discord.gg/3tFg7RPvJr) and ill try to help if possible, but read all of this first and ensure youre doing it properly before asking for any help.
