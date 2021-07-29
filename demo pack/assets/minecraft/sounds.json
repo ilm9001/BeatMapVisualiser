@@ -1,0 +1,22 @@
+{ 
+ "barbedwire": {
+    "sounds": [
+      {
+        "name": "barbedwire",
+        "stream": true,
+        "attenuation_distance": 16
+      }
+    ],
+    "subtitle": "Rogue - Barbed Wire"
+  },
+  "whosgotyourlove": {
+    "sounds": [
+      {
+        "name": "whosgotyourlove",
+        "stream": true,
+        "attenuation_distance": 16
+      }
+    ],
+    "subtitle": "Stonebank - Who's Got Your Love"
+  } 
+}
