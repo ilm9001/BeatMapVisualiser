@@ -26,7 +26,8 @@ Place them into the resource packs "sounds" folder (filepath: pack\assets\minecr
 
 Update the sounds.json file in \pack\assets\minecraft\ to include your songs with the names of the files you renamed them to, for example:
 
-```{
+```
+{
   "barbedwire": {
     "sounds": [
       {
