@@ -2,6 +2,8 @@
 
 Music visualiser *plugin* for minecraft which uses beat saber beatmaps for various visuals as well as a resource pack for streaming music for players
 
+Showcase video, older version of the plugin, but still practically the same: https://streamable.com/zljpry
+
 # KEY CAVEATS
 
 THIS PLUGIN USES A RESOURCE PACK FOR THE SOUND. There are some issues with the backlights groups coordinates, basically theres a issue of a weird offset when spawning them. A LOT of the plugin is hardcoded for my specific usecase, if you want to have less or more lasers for example you have to edit the code and compile another plugin at least right now. Viewing the amount of lasers this plugin produces is probably resource-intensive so this will not run on your grandmas computer from 1998. A lot of guardian beam packets for movement and such are being practically spammed to the player every 100ms per laser, this may cause ping issues in certain cases but ive tested this with others and it should be fine for a good-average internet connection.
