@@ -1,7 +1,7 @@
 name: BeatMapVisualiser
 version: ${project.version}
 main: com.ilm9001.beatmapvisualiser.BeatMapVisualiser
-api-version: 1.17.1
+api-version: 1.17
 authors: [ Ilm9001 ]
 description: Parses beatmap data and plays various effects
 website: ilm9001.com

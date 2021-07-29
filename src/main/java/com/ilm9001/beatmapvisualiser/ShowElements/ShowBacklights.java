@@ -17,6 +17,7 @@ import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 
 
 public class ShowBacklights implements ShowControl {
@@ -32,9 +33,9 @@ public class ShowBacklights implements ShowControl {
     private double INITIAL_LENGTH = 1800.0;
 
     // Internal runtime variables
-    // We store a UUID reference to entities as Entity instances can "disappear" when chunks unload, but UUID's cant.
-    private final ArrayList<UUID> bklts_l;
-    private final ArrayList<UUID> bklts_r;
+    
+    private final ArrayList<Entity> bklts_l;//1.17 broke UUID entity storage (making it that Bukkit.getEntity(UUID) mustnt be async)
+    private final ArrayList<Entity> bklts_r;// so now we just store entities
     private boolean is_on;
     private boolean color; // True = blue, False = red
     private boolean is_running;
@@ -73,11 +74,11 @@ public class ShowBacklights implements ShowControl {
                     @Override
                     public void run() {
                         for (int i = 0; i< num_light; i++) {
-                            Bukkit.getEntity(bklts_l.get(i)).teleport(backlight_center.clone().add(0,0,-OFFSETZ).clone().add(i*bltoffsetX,i*bltoffsetY,i*bltoffsetZ));
+                            bklts_l.get(i).teleport(backlight_center.clone().add(0,0,-OFFSETZ).clone().add(i*bltoffsetX,i*bltoffsetY,i*bltoffsetZ));
                         }
 
                         for (int i = 0; i< num_light; i++) {
-                            Bukkit.getEntity(bklts_r.get(i)).teleport(backlight_center.clone().add(0, 0, OFFSETZ).clone().add(i*bltoffsetX,i*bltoffsetY,i*bltoffsetZ));
+                            bklts_r.get(i).teleport(backlight_center.clone().add(0, 0, OFFSETZ).clone().add(i*bltoffsetX,i*bltoffsetY,i*bltoffsetZ));
                         }
                     }
                 }.runTask(bmv);
@@ -88,11 +89,11 @@ public class ShowBacklights implements ShowControl {
                     @Override
                     public void run() {
                         for (int i = 0; i< num_light; i++) {
-                            Bukkit.getEntity(bklts_l.get(i)).teleport(backlight_center_alt.clone().add(0,0,-OFFSETZ).clone().add(i*bltoffsetX,i*bltoffsetY,i*bltoffsetZ));
+                            bklts_l.get(i).teleport(backlight_center_alt.clone().add(0,0,-OFFSETZ).clone().add(i*bltoffsetX,i*bltoffsetY,i*bltoffsetZ));
                         }
 
                         for (int i = 0; i< num_light; i++) {
-                            Bukkit.getEntity(bklts_r.get(i)).teleport(backlight_center_alt.clone().add(0, 0, OFFSETZ).clone().add(i*bltoffsetX,i*bltoffsetY,i*bltoffsetZ));
+                            bklts_r.get(i).teleport(backlight_center_alt.clone().add(0, 0, OFFSETZ).clone().add(i*bltoffsetX,i*bltoffsetY,i*bltoffsetZ));
                         }
                     }
                 }.runTask(bmv);
@@ -120,7 +121,7 @@ public class ShowBacklights implements ShowControl {
         for(int i=0; i<NUM_LGHT; i++) {
             Location altloc = loc1.clone().add(i*offsetX, i*offsetY, i*offsetZ);
             Entity ent1 = bmv.main_world.spawnEntity(altloc, EntityType.ENDER_CRYSTAL);
-            bklts_l.add(ent1.getUniqueId());
+            bklts_l.add(ent1);
             ((EnderCrystal) ent1).setBeamTarget(null);
             ((EnderCrystal) ent1).setShowingBottom(false);
         }
@@ -131,24 +132,21 @@ public class ShowBacklights implements ShowControl {
         for(int i=0; i<NUM_LGHT; i++) {
             Location altloc = loc2.clone().add(-i*offsetX, -i*offsetY, -i*offsetZ);
             Entity ent2 = bmv.main_world.spawnEntity(altloc, EntityType.ENDER_CRYSTAL);
-            bklts_r.add(ent2.getUniqueId());
+            bklts_r.add(ent2);
             ((EnderCrystal) ent2).setBeamTarget(null);
             ((EnderCrystal) ent2).setShowingBottom(false);
         }
-        setColor(false);
-        Util.safe_sleep(100);
-        setColor(true);
         // bmv.getLogger().info(String.format("Built bklts %s", bklts.toString()));
     }
 
     @Override
     public void Dismantle() {
         // bmv.getLogger().info(String.format("Dismantling bklts %s", bklts.toString()));
-        for (UUID blt: bklts_l) {
-            if (blt != null && Bukkit.getEntity(blt) != null) Bukkit.getEntity(blt).remove();
+        for (Entity blt: bklts_l) {
+            if (blt != null) blt.remove();
         }
-        for (UUID blt: bklts_r) {
-            if (blt != null && Bukkit.getEntity(blt) != null) Bukkit.getEntity(blt).remove();
+        for (Entity blt: bklts_r) {
+            if (blt != null) blt.remove();
         }
         bklts_l.clear();
         bklts_r.clear();
@@ -242,7 +240,7 @@ public class ShowBacklights implements ShowControl {
                     double delta_r1 = (2.0 * Math.PI * (ANGLE_MIN + a)) / 360.0;
                     Vector3D v1 = new Vector3D(Math.PI / 2, delta_r1).normalize().scalarMultiply(length);
                     for (int i = 0; i < num_light; i++) {
-                        Entity blt = Bukkit.getEntity(bklts_l.get(i));
+                        Entity blt = bklts_l.get(i);
                         Location loc = blt.getLocation().clone()
                                 .add(v1.getX(), v1.getZ(), v1.getY());
                         ((EnderCrystal) blt).setBeamTarget(loc);
@@ -253,18 +251,18 @@ public class ShowBacklights implements ShowControl {
                     Vector3D v2 = new Vector3D(Math.PI / 2, delta_r2).normalize().scalarMultiply(length);
         
                     for (int i = 0; i < num_light; i++) {
-                        Entity blt = Bukkit.getEntity(bklts_r.get(i));
+                        Entity blt = bklts_r.get(i);
                         Location loc = blt.getLocation().clone()
                                 .add(v2.getX(), v2.getZ(), v2.getY());
                         ((EnderCrystal) blt).setBeamTarget(loc);
                     }
                 } else {
                     // set beams off
-                    for (UUID blt : bklts_l) {
-                        ((EnderCrystal) Bukkit.getEntity(blt)).setBeamTarget(null);
+                    for (Entity blt : bklts_l) {
+                        ((EnderCrystal) blt).setBeamTarget(null);
                     }
-                    for (UUID blt : bklts_r) {
-                        ((EnderCrystal) Bukkit.getEntity(blt)).setBeamTarget(null);
+                    for (Entity blt : bklts_r) {
+                        ((EnderCrystal) blt).setBeamTarget(null);
                     }
                 }
                 Util.safe_sleep(100);
