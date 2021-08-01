@@ -4,8 +4,6 @@ import com.ilm9001.beatmapvisualiser.Commands.PlayCommandTabComplete;
 import com.ilm9001.beatmapvisualiser.LE.LE_list;
 
 import org.bstats.bukkit.Metrics;
-import org.bstats.charts.CustomChart;
-import org.bstats.json.JsonObjectBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -23,7 +21,6 @@ import org.json.simple.parser.ParseException;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Objects;
 
 
 public final class BeatMapVisualiser extends JavaPlugin {
@@ -50,8 +47,10 @@ public final class BeatMapVisualiser extends JavaPlugin {
         if(show == null) {
             show = new Show(bmv, stg);
         }
-    
-        Metrics metrics = new Metrics(this, 12300);
+        
+        //bstats
+        int pluginId = 12300;
+        Metrics metrics = new Metrics(this, pluginId);
         
         // create the play command hook + autocompleter
         this.getCommand("playbeatmap").setExecutor(new PlayCommand());
