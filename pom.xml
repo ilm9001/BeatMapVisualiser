@@ -34,10 +34,11 @@
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.2.4</version>
                 <configuration>
-                    <dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
                     <relocations>
-                        <pattern>org.bstats</pattern>
-                        <shadedPattern>com.ilm9001.beatmapvisualiser.Util</shadedPattern>
+                        <relocation>
+                            <pattern>org.bstats</pattern>
+                            <shadedPattern>com.ilm9001.beatmapvisualiser.Util</shadedPattern>
+                        </relocation>
                     </relocations>
                 </configuration>
                 <executions>
@@ -46,9 +47,6 @@
                         <goals>
                             <goal>shade</goal>
                         </goals>
-                        <configuration>
-                            <createDependencyReducedPom>false</createDependencyReducedPom>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
