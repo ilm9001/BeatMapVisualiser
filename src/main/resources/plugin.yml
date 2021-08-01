@@ -11,3 +11,8 @@ commands:
     description: Load a beatmap and play it
     usage: /playbeatmap <Beatmap Folder name>
     permission: beatmapvisualiser.playbeatmap
+
+permissions:
+  beatmapvisualiser.playbeatmap:
+    description: plays a beatmap
+    default: op
