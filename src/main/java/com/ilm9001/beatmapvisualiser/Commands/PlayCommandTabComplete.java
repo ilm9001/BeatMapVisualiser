@@ -18,7 +18,7 @@ public class PlayCommandTabComplete implements TabCompleter {
       if(commandSender.hasPermission("beatmapvisualiser.playbeatmap")) {
          String df = Bukkit.getPluginManager().getPlugin("BeatMapVisualiser").getDataFolder().getAbsolutePath();
          File[] directories = new File(df).listFiles(File::isDirectory); //adds all subdirectories in plugin datafolder path to a File array
-         List<String> list = new ArrayList<String>();
+         List<String> list = new ArrayList<>();
          for (File file : directories) {
             list.add(file.getName());
          }
