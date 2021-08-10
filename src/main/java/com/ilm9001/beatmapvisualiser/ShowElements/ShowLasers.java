@@ -218,7 +218,7 @@ public class ShowLasers implements ShowControl {
                 if (step == 0) {
                     a = 45;
                     DELTA_A = 0;
-                    if(isAlt) alpha_a = sign * ((2.0 / Math.PI * 45) /360);
+                    if(isAlt) alpha_a = sign * ((2.0 / Math.PI * (sign* 45)) /360);
                     else alpha_a = 0; //sign * ((Math.PI * 45) /360);
                 } else {
                     DELTA_A = INITIAL_DELTA_A;
