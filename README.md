@@ -2,8 +2,10 @@
 
 Music visualiser *plugin* for minecraft which uses beat saber beatmaps for various visuals as well as a resource pack for streaming music for players
 
-Showcase video, older version of the plugin, but still practically the same: https://streamable.com/zljpry
-
+Showcase videos: 
+https://streamable.com/zljpry
+https://streamable.com/c7b636
+https://streamable.com/tnhdy5
 # KEY CAVEATS
 
 THIS PLUGIN USES A RESOURCE PACK FOR THE SOUND. 
