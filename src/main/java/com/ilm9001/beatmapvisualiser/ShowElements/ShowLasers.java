@@ -218,10 +218,12 @@ public class ShowLasers implements ShowControl {
                 if (step == 0) {
                     a = 45;
                     DELTA_A = 0;
-                    alpha_a = sign * ((2.0 * Math.PI * 45) /360);
+                    if(isAlt) alpha_a = sign * ((2.0 / Math.PI * 45) /360);
+                    else alpha_a = 0; //sign * ((Math.PI * 45) /360);
                 } else {
                     DELTA_A = INITIAL_DELTA_A;
-                    alpha_a = 0;
+                    if(isAlt) alpha_a = sign * (Math.PI / 2.0);
+                    else alpha_a = 0; //sign * Math.PI;
                 }
     
                 double a_n = a;
@@ -245,15 +247,15 @@ public class ShowLasers implements ShowControl {
                     } else {
                         if (!isAlt) {
                             if (!ringZoomed) {
-                                end_loc = lsr.getStart().clone().add(v1.getX(), v1.getZ() - (len / 20.0), v1.getY() + len);
+                                end_loc = lsr.getStart().clone().add(v1.getY() + len, v1.getZ() - (len / 20.0), v1.getX());
                             } else {
-                                end_loc = lsr.getStart().clone().add(0, v1.getZ() - (len / 20.0), len);
+                                end_loc = lsr.getStart().clone().add(len, v1.getZ() - (len / 20.0), 0);
                             }
                         } else {
                             if (!ringZoomed) {
-                                end_loc = lsr.getStart().clone().subtract(v1.getX() + sign * len, v1.getZ() - (len / 32.0), v1.getY() + sign * len);
+                                end_loc = lsr.getStart().clone().add(v1.getY(), v1.getZ() - (len / 32.0), v1.getX() + sign * len);
                             } else {
-                                end_loc = lsr.getStart().clone().subtract(0, v1.getZ() - (len / 32.0), sign * len);
+                                end_loc = lsr.getStart().clone().add(0, v1.getZ() - (len / 32.0), sign * len);
                             }
                         }
                     }

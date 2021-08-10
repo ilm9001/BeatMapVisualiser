@@ -137,6 +137,11 @@ public class ShowBacklights implements ShowControl {
             ((EnderCrystal) ent2).setShowingBottom(false);
         }
         // bmv.getLogger().info(String.format("Built bklts %s", bklts.toString()));
+        this.setColor(false);
+        Util.safe_sleep(200);
+        this.setColor(true);
+        Util.safe_sleep(100);
+        this.setColor(false);
     }
 
     @Override

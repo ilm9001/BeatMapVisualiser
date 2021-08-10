@@ -61,7 +61,7 @@ public class ShowBall implements ShowControl {
             lsr.start(bmv);
             lsrs.add(lsr);
             double alpha = i*360;
-            double delta = i*10;
+            double delta = i*15;
             uniqueAlpha.put(lsr,alpha);
             uniqueDelta.put(lsr,delta);
          }
@@ -186,7 +186,7 @@ public class ShowBall implements ShowControl {
                //if(a_n < 360) a_n = 360;
                
                double a_n = 360 + a + uniqueDelta.get(lsr);
-               double b_n = 90 + a + spin; //+ uniqueAlpha.get(lsr);
+               double b_n = 90 + (a/5) + spin; //+ uniqueAlpha.get(lsr);
                if (!lsr.isStarted() && is_on && is_running) {
                   lsr.start(bmv);
                }
