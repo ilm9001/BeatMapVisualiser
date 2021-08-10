@@ -214,27 +214,21 @@ public class ShowLasers implements ShowControl {
                 double astep = sign * STEP_A * step;
                 a += astep;
                 a = a % 360.0;
-
-
-
+    
+                if (step == 0) {
+                    a = 45;
+                    DELTA_A = 0;
+                    alpha_a = sign * ((2.0 * Math.PI * 45) /360);
+                } else {
+                    DELTA_A = INITIAL_DELTA_A;
+                    alpha_a = 0;
+                }
+    
                 double a_n = a;
                 for (Laser lsr : lsrs) {
                     if(!lsr.isStarted() && is_on && is_running && len > 0) {
                         lsr.start(bmv);
                     }
-
-                    if (step == 0) {
-                        a = 45;
-                        DELTA_A = 0;
-                        alpha_a = sign * (Math.PI/2);
-                    } else {
-                        DELTA_A = INITIAL_DELTA_A;
-                        alpha_a = 0;
-                    }
-                    if(ringZoomed) {
-                        DELTA_A = 0;
-                    }
-
 
                     double delta_r = (2.0 * Math.PI * a_n) / 360.0;
                     Vector3D v1;
@@ -251,15 +245,15 @@ public class ShowLasers implements ShowControl {
                     } else {
                         if (!isAlt) {
                             if (!ringZoomed) {
-                                end_loc = lsr.getStart().clone().add(v1.getX() + len, v1.getZ() - (len / 20.0), v1.getY());
+                                end_loc = lsr.getStart().clone().add(v1.getX(), v1.getZ() - (len / 20.0), v1.getY() + len);
                             } else {
-                                end_loc = lsr.getStart().clone().add(len, v1.getZ() - (len / 20.0), 0);
+                                end_loc = lsr.getStart().clone().add(0, v1.getZ() - (len / 20.0), len);
                             }
                         } else {
                             if (!ringZoomed) {
-                                end_loc = lsr.getStart().clone().add(v1.getY(), v1.getZ() - (len / 32.0), v1.getX() + sign * len);
+                                end_loc = lsr.getStart().clone().subtract(v1.getX() + sign * len, v1.getZ() - (len / 32.0), v1.getY() + sign * len);
                             } else {
-                                end_loc = lsr.getStart().clone().add(0, v1.getZ() - (len / 32.0), sign * len);
+                                end_loc = lsr.getStart().clone().subtract(0, v1.getZ() - (len / 32.0), sign * len);
                             }
                         }
                     }
